@@ -28,7 +28,7 @@ class AuthController extends AbstractController
     /**
      * Register a new user.
      * 
-     * @Route("/api/register", name="api.auth.register", methods={"POST"})
+     * @Route("/register", name="auth.register", methods={"POST"})
      * 
      * @return Response
      */
