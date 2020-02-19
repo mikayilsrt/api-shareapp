@@ -36,6 +36,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /**
+     * Check if user exist by email and username.
+     * 
+     * @param String $email
+     * 
+     * @param String $username
+     * 
+     * @return Boolean
+     */
+    public function isExist($email, $username): bool
+    {
+        return $this->findBy(['email' => $email]) || $this->findBy(['username' => $username]);
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

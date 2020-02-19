@@ -66,7 +66,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="text")
      */
-    private $profile_image;
+    private $profile_image = "default_profile_image.jpg";
 
     public function getId(): ?int
     {
