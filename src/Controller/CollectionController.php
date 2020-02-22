@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Collection;
+use App\Controller\ApiController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class CollectionController extends AbstractController
+class CollectionController extends ApiController
 {
 
     /**
@@ -45,26 +45,17 @@ class CollectionController extends AbstractController
         $description = $request->get('description');
         $file = $request->files->get('collection_cover');
         $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
+        $fileName = 'cover_default.jpg';
         
-        if (empty($title) || empty($description)) {
-            return new JsonResponse([
-                'status' => 422,
-                'success' => "Invalid informations."
-            ]);
-        }
+        if (empty($title) || empty($description)) return $this->respondValidationError();
 
         if ($file) {
             if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
                 $fileName = md5(\uniqid()) . '-' . $user->getId() . '.' . $file->guessExtension();
                 $file->move($this->getParameter('upload_directory'), $fileName);
             } else {
-                return new JsonResponse([
-                    'status' => 406,
-                    'success' => "Invalid File."
-                ]);
+                return $this->respondValidationError();
             }
-        } else {
-            $fileName = 'cover_default.jpg';
         }
 
         $collection = new Collection();
@@ -75,9 +66,6 @@ class CollectionController extends AbstractController
         $this->em->persist($collection);
         $this->em->flush();
 
-        return new JsonResponse([
-            'status' => 200,
-            'success' => "Collection successfully created."
-        ]);
+        return $this->respondWithSuccess("Collection successfully created.");
     }
 }
