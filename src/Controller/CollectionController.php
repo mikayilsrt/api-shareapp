@@ -43,8 +43,9 @@ class CollectionController extends AbstractController
         $user = $this->security->getUser();
         $title = $request->get('title');
         $description = $request->get('description');
-        // $coverPhoto = "cover_photo_name.jpeg"
-
+        $file = $request->files->get('collection_cover');
+        $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
+        
         if (empty($title) || empty($description)) {
             return new JsonResponse([
                 'status' => 422,
@@ -52,10 +53,24 @@ class CollectionController extends AbstractController
             ]);
         }
 
+        if ($file) {
+            if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
+                $fileName = md5(\uniqid()) . '-' . $user->getId() . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+            } else {
+                return new JsonResponse([
+                    'status' => 406,
+                    'success' => "Invalid File."
+                ]);
+            }
+        } else {
+            $fileName = 'cover_default.jpg';
+        }
+
         $collection = new Collection();
         $collection->setTitle($title);
         $collection->setDescription($description);
-        // $collection->setCoverPhoto($coverPhoto);
+        $collection->setCoverPhoto($fileName);
         $collection->setUser($user);
         $this->em->persist($collection);
         $this->em->flush();
