@@ -19,6 +19,24 @@ class CollectionRepository extends ServiceEntityRepository
         parent::__construct($registry, Collection::class);
     }
 
+    /**
+     * Return collections array.
+     * 
+     * @param int $id
+     * 
+     * @return array<Collection>
+     */
+    public function findCollectionById($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c, u')
+            ->where('c.id = :id')
+            ->leftJoin('c.user', 'u')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Collection[] Returns an array of Collection objects
     //  */

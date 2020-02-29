@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Collection;
 use App\Controller\ApiController;
+use App\Repository\CollectionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -27,6 +29,24 @@ class CollectionController extends ApiController
     {
         $this->em = $em;
         $this->security = $security;
+    }
+
+    /**
+     * Get collection by ID.
+     * 
+     * @Route("/collection/{id}", name="collection.show")
+     * 
+     * @param CollectionRepository $collectionRepository
+     * 
+     * @param int $id
+     * 
+     * @return Response
+     */
+    public function show($id, CollectionRepository $collectionRepository)
+    {
+        $collection = $collectionRepository->findCollectionById($id);
+
+        return $this->respondWithSuccess($collection[0], ['Content-Type' => 'application/json']);
     }
 
     /**
