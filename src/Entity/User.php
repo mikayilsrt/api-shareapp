@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -67,6 +69,16 @@ class User implements UserInterface
      * @ORM\Column(type="text")
      */
     private $profile_image = "default_profile_image.jpg";
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Collection", mappedBy="user")
+     */
+    private $collections;
+
+    public function __construct()
+    {
+        $this->collections = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -221,6 +233,37 @@ class User implements UserInterface
     public function setProfileImage(string $profile_image): self
     {
         $this->profile_image = $profile_image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Collection[]
+     */
+    public function getCollections(): Collection
+    {
+        return $this->collections;
+    }
+
+    public function addCollection(Collection $collection): self
+    {
+        if (!$this->collections->contains($collection)) {
+            $this->collections[] = $collection;
+            $collection->setCollection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollection(Collection $collection): self
+    {
+        if ($this->collections->contains($collection)) {
+            $this->collections->removeElement($collection);
+            // set the owning side to null (unless already changed)
+            if ($collection->getCollection() === $this) {
+                $collection->setCollection(null);
+            }
+        }
 
         return $this;
     }
