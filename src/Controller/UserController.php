@@ -6,11 +6,14 @@ use App\Controller\ApiController;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api/user", name="api.user")
+ */
 class UserController extends ApiController
 {
 
     /**
-     * @Route("/user/{id}", name="api.user.show")
+     * @Route("/{id}", name="api.user.show")
      * 
      * @param int $id
      * 
