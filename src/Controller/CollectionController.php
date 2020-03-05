@@ -63,6 +63,8 @@ class CollectionController extends ApiController
      */
     public function create(Request $request)
     {
+        if (!$this->security->getUser()) return $this->respondWithErrors("User is not authenticate.");
+
         $user = $this->security->getUser();
         $title = $request->get('title');
         $description = $request->get('description');
