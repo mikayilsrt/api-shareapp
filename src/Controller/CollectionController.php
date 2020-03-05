@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * @Route("/api/collection", name="api.collection")
+ */
 class CollectionController extends ApiController
 {
 
@@ -34,7 +37,7 @@ class CollectionController extends ApiController
     /**
      * Get collection by ID.
      * 
-     * @Route("/collection/{id}", name="collection.show")
+     * @Route("/{id}", name="collection.show", methods={"GET"})
      * 
      * @param CollectionRepository $collectionRepository
      * 
@@ -52,7 +55,7 @@ class CollectionController extends ApiController
     /**
      * Create a new collection.
      * 
-     * @Route("/api/collection/create", name="api.collection.create", methods={"POST"})
+     * @Route("/create", name="api.collection.create", methods={"POST"})
      * 
      * @param Request $request
      * 

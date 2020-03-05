@@ -13,7 +13,7 @@ class UserController extends ApiController
 {
 
     /**
-     * @Route("/{id}", name="api.user.show")
+     * @Route("/{id}", name="api.user.show", methods={"GET"})
      * 
      * @param int $id
      * 

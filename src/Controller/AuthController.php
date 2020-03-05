@@ -28,7 +28,7 @@ class AuthController extends ApiController
     /**
      * Register a new user.
      * 
-     * @Route("/register", name="auth.register", methods={"POST"})
+     * @Route("/api/register", name="api.auth.register", methods={"POST"})
      * 
      * @return Response
      */
