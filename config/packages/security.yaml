@@ -47,6 +47,7 @@ security:
         - { path: ^/api/user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/collection, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/collection/create, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/collection/delete, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

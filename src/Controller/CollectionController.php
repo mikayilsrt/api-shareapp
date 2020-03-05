@@ -91,4 +91,26 @@ class CollectionController extends ApiController
 
         return $this->respondWithSuccess("Collection successfully created.");
     }
+
+    /**
+     * @Route("/delete/{id}", name="api.collection.delete", methods={"DELETE"})
+     * 
+     * @param int $id
+     * 
+     * @param CollectionRepository $collectionRepository
+     * 
+     * @return Response
+     */
+    public function delete($id, CollectionRepository $collectionRepository)
+    {
+        $collection = $collectionRepository->find($id);
+
+        if (!$collection || !$this->security->getUser() || $collection->getUser() != $this->security->getUser())
+            return $this->respondWithErrors("Collection not found or Action invalid.");
+
+        $this->em->remove($collection);
+        $this->em->flush(); 
+
+        return $this->respondWithSuccess("Collection successfully deleted.");
+    }
 }
