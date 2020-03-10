@@ -95,6 +95,47 @@ class CollectionController extends ApiController
     }
 
     /**
+     * @Route("/update/{id}", name="api.collection.update", methods={"POST"})
+     * 
+     * @param int $id
+     * 
+     * @param CollectionRepository $collectionRepository
+     * 
+     * @return Response
+     */
+    public function update($id, Request $request, CollectionRepository $collectionRepository)
+    {
+        $collection = $collectionRepository->find($id);
+
+        $title = $request->get('title');
+        $description = $request->get('description');
+        $file = $request->files->get('collection_cover');
+        $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
+
+        if (!$collection || !$this->security->getUser() || $collection->getUser() != $this->security->getUser())
+            return $this->respondWithErrors("Collection not found or Action invalid");
+
+        if (empty($title) && empty($description))
+            return $this->respondValidationError();
+        
+        if ($file) {
+            if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
+                $fileName = md5(\uniqid()) . '-' . $this->security->getUser()->getId() . '.' . $file->guessExtension();
+                $file->move($this->getParameter('upload_directory'), $fileName);
+                $collection->setCoverPhoto($fileName);
+            } else {
+                return $this->respondValidationError();
+            }
+        }
+        
+        $collection->setTitle($title);
+        $collection->setDescription($description);
+        $this->em->flush();
+        
+        return $this->respondWithSuccess("Collection successfully updated.");
+    }
+
+    /**
      * @Route("/delete/{id}", name="api.collection.delete", methods={"DELETE"})
      * 
      * @param int $id
