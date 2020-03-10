@@ -69,15 +69,13 @@ class CollectionController extends ApiController
         $title = $request->get('title');
         $description = $request->get('description');
         $file = $request->files->get('collection_cover');
-        $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
         $fileName = 'cover_default.jpg';
         
         if (empty($title) || empty($description)) return $this->respondValidationError();
 
         if ($file) {
-            if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
-                $fileName = md5(\uniqid()) . '-' . $user->getId() . '.' . $file->guessExtension();
-                $file->move($this->getParameter('upload_directory'), $fileName);
+            if ($newFileName = $this->uploadImage($file, $user, "collection_upload_directory")) {
+                $fileName = $newFileName;
             } else {
                 return $this->respondValidationError();
             }
@@ -112,7 +110,6 @@ class CollectionController extends ApiController
         $title = $request->get('title');
         $description = $request->get('description');
         $file = $request->files->get('collection_cover');
-        $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
 
         if (!$collection || !$this->security->getUser() || $collection->getUser() != $this->security->getUser())
             return $this->respondWithErrors("Collection not found or Action invalid");
@@ -121,9 +118,7 @@ class CollectionController extends ApiController
             return $this->respondValidationError();
         
         if ($file) {
-            if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
-                $fileName = md5(\uniqid()) . '-' . $this->security->getUser()->getId() . '.' . $file->guessExtension();
-                $file->move($this->getParameter('upload_directory'), $fileName);
+            if ($fileName = $this->uploadImage($file, $this->security->getUser(), "collection_upload_directory")) {
                 $collection->setCoverPhoto($fileName);
             } else {
                 return $this->respondValidationError();

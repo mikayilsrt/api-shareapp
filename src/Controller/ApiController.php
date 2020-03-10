@@ -114,4 +114,31 @@ class ApiController extends AbstractController
         return $this->setStatusCode(422)->respondWithErrors($message);
     }
 
+    /**
+     * Upload file.
+     * 
+     * @param UploadedFile $file
+     * 
+     * @param User $user
+     * 
+     * @param string $folderParameterDirectory
+     * 
+     * @return string||boolean
+     */
+    public function uploadImage($file, $user, $folderParameterDirectory)
+    {
+        $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
+
+        if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
+            $fileName = md5(\uniqid()) . '-' . $user->getId() . '.' . $file->guessExtension();
+            $file->move($this->getParameter($folderParameterDirectory), $fileName);
+            
+            return $fileName;
+        } else {
+            return $this->respondValidationError();
+        }
+
+        return false;
+    }
+
 }

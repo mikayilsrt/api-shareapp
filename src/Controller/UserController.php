@@ -83,8 +83,6 @@ class UserController extends ApiController
         $longitude = $request->get('longitude');
         $file = $request->files->get('profile_image');
 
-        $fileExtensionValid = array('PNG', 'JPG', 'JPEG');
-
         if (!$user || !$this->security->getUser() || $this->security->getUser() != $user)
             return $this->respondWithErrors("User not found or Action invalid.");
 
@@ -92,9 +90,7 @@ class UserController extends ApiController
             return $this->respondValidationError();
 
         if ($file) {
-            if (in_array(strtoupper($file->guessExtension()), $fileExtensionValid)) {
-                $fileName = md5(\uniqid()) . '-' . $user->getId() . '.' . $file->guessExtension();
-                $file->move($this->getParameter('upload_directory'), $fileName);
+            if ($fileName = $this->uploadImage($file, $user, "profile_upload_directory")) {
                 $user->setProfileImage($fileName);
             } else {
                 return $this->respondValidationError();
