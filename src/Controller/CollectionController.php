@@ -99,6 +99,8 @@ class CollectionController extends ApiController
      * 
      * @param int $id
      * 
+     * @param Request $request
+     * 
      * @param CollectionRepository $collectionRepository
      * 
      * @return Response
