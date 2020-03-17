@@ -20,6 +20,19 @@ class CollectionRepository extends ServiceEntityRepository
     }
 
     /**
+     * Get a array with all collections
+     * 
+     * @return array
+     */
+    public function findAllCollections()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    /**
      * Return collections array.
      * 
      * @param int $id

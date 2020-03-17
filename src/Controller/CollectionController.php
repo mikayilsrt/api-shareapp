@@ -35,6 +35,20 @@ class CollectionController extends ApiController
     }
 
     /**
+     * @Route("/", name="collection.index")
+     * 
+     * @param CollectionRepository $collectionRepository
+     * 
+     * @return Response
+     */
+    public function index(CollectionRepository $collectionRepository)
+    {
+        $collections = $collectionRepository->findAllCollections();
+        
+        return $this->respondWithSuccess($collections);
+    }
+
+    /**
      * Get collection by ID.
      * 
      * @Route("/{id}", name="collection.show", methods={"GET"})
