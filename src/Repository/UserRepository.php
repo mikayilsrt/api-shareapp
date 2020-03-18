@@ -50,6 +50,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->findBy(['email' => $email]) || $this->findBy(['username' => $username]);
     }
 
+    /**
+     * Get a user with all collections and photos posted.
+     * 
+     * @return array
+     */
+    public function findUserWithPost($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u, c, p')
+            ->leftJoin('u.collections', 'c')
+            ->leftJoin('u.photos', 'p')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
