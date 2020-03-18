@@ -6,6 +6,7 @@
 parameters:
     collection_upload_directory: '%kernel.root_dir%/../public/uploads/collections'
     profile_upload_directory: '%kernel.root_dir%/../public/uploads/profile'
+    photo_upload_directory: '%kernel.root_dir%/../public/uploads/photo'
 
 services:
     # default configuration for services in *this* file

@@ -19,6 +19,21 @@ class PhotoRepository extends ServiceEntityRepository
         parent::__construct($registry, Photo::class);
     }
 
+    /**
+     * Get all photos posted.
+     * 
+     * @return Array
+     */
+    public function findAllPhotos()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, u, c')
+            ->leftJoin('p.collection', 'c')
+            ->leftJoin('p.user', 'u')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Photo[] Returns an array of Photo objects
     //  */
