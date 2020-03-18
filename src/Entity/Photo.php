@@ -27,14 +27,12 @@ class Photo
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Collection", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Collection", inversedBy="photos")
      */
     private $collection;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="photos")
      */
     private $user;
 
