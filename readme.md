@@ -1,0 +1,93 @@
+# shareapp-api
+
+This is a simple api developed with Symfony for a mobile application.
+
+## 🚀 Get started to install
+
+```
+git clone https://github.com/mikayilsrt/api-shareapp.git
+cd api-shareapp && composer install
+...
+```
+
+---
+
+## 🏁 Api route
+
+### Register a new user
+```
+[POST]
+http://127.0.0.1:8000/api/register
+```
+- [Params]
+    - username: string | **required** | **unique**
+    - mail: string | **required** | **unique**
+    - password: string | **required**
+
+### Authentification
+```
+[POST]
+http://127.0.0.1:8000/api/login_check
+```
+- [Body]
+    - username: string | **required**
+    - password: string | **required**
+
+⚠️ **Warning** : username is the user email
+
+
+### Update user account
+```
+[POST]
+http://127.0.0.1:8000/api/user/update/{id}
+```
+- [Params]
+    - name: string | **required**
+    - username: string | **required**
+    - email: string | **required**
+    - password: string | **required**
+    - biographie: string
+    - portfolio_url: string
+    - latitude: double
+    - longitude: double
+- [Header]
+    - Authorization: Bearer Token
+- [FORM_DATA]
+    - profile_image: file
+
+### Show a user information
+```
+[GET]
+http://127.0.0.1:8000/api/user/{id}
+```
+
+### Get a list of all collections
+```
+[GET]
+http://127.0.0.1:8000/api/collection
+```
+
+### Get a collection
+```
+[GET]
+http://127.0.0.1:8000/api/collection/{id}
+```
+
+### Create a new collection
+```
+[POST]
+http://127.0.0.1:8000/api/collection/create
+```
+- [Params]
+    - title: string | **required**
+    - description: string | **required**
+- [Header]
+    - Authorization: Bearer Token
+- [FORM_DATA]
+    - profile_image: file
+
+### Update a collection
+```
+[POST]
+http://127.0.0.1:8000/api/collection/update/{id}
+```
