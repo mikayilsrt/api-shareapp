@@ -87,4 +87,25 @@ class PhotoController extends ApiController
         return $this->respondWithSuccess("Photo successfully created.");
     }
 
+    /**
+     * @Route("/delete/{id}", name="api.photo.delete", methods={"DELETE"})
+     * 
+     * @param int $id
+     * 
+     * @param PhotoRepository $photoRepository
+     * 
+     * @return Response
+     */
+    public function delete($id, PhotoRepository $photoRepository)
+    {
+        $photo = $photoRepository->find($id);
+
+        if (!$this->security->getUser() || $this->security->getUser()->getId() != $photo->getUser()->getId()) return $this->respondWithErrors("User is not authenticate.");
+
+        $this->em->remove($photo);
+        $this->em->flush();
+
+        return $this->respondWithSuccess("Photo successfully deleted.");
+    }
+
 }
