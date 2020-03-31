@@ -132,3 +132,15 @@ http://127.0.0.1:8000/api/photo/create
     - latitude: double
 - [Header]
     - Authorization: Bearer Token
+
+### Route of favorite
+```
+[POST]
+http://127.0.0.1:8000/api/favorite/favorite
+```
+- [Params]
+    - photo_id: int | **required**
+- [Header]
+    - Authorization: Bearer Token
+
+⚠️ **Warning** : This route add picture in favorite or remove if already liked.
