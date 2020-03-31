@@ -13,7 +13,6 @@ cd api-shareapp && composer install
 # 🏁 Api
 
 ## Authenticate Route
----
 
 ### Register a new user
 ```
@@ -37,7 +36,6 @@ http://127.0.0.1:8000/api/login_check
 ⚠️ **Warning** : username is the user email
 
 ## User Route
----
 
 ### Update user account
 ```
@@ -65,7 +63,6 @@ http://127.0.0.1:8000/api/user/{id}
 ```
 
 ## Route of collections
----
 
 ### Get a list of all collections
 ```
@@ -114,7 +111,6 @@ http://127.0.0.1:8000/api/collection/delete/{id}
     - Authorization: Bearer Token
 
 ## Route of pictures
----
 
 ### Get a list of all pictures
 ```
