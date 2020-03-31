@@ -134,8 +134,6 @@ class ApiController extends AbstractController
             $file->move($this->getParameter($folderParameterDirectory), $fileName);
             
             return $fileName;
-        } else {
-            return $this->respondValidationError();
         }
 
         return false;
