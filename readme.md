@@ -87,7 +87,7 @@ http://127.0.0.1:8000/api/collection/create
 - [Header]
     - Authorization: Bearer Token
 - [FORM_DATA]
-    - profile_image: file
+    - collection_cover: file
 
 ### Update a collection
 ```
