@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Collection as Category;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
@@ -51,6 +54,16 @@ class Photo
      */
     private $longitude;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Favorite", mappedBy="photo")
+     */
+    private $favorites;
+
+    public function __construct()
+    {
+        $this->favorites = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,12 +93,12 @@ class Photo
         return $this;
     }
 
-    public function getCollection(): ?Collection
+    public function getCollection(): ?Category
     {
         return $this->collection;
     }
 
-    public function setCollection(Collection $collection): self
+    public function setCollection(Category $collection): self
     {
         $this->collection = $collection;
 
@@ -136,6 +149,37 @@ class Photo
     public function setLongitude(?float $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favorite[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favoritess;
+    }
+
+    public function addFavorite(Favorite $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): self
+    {
+        if ($this->favorites->contains($favorite)) {
+            $this->favorites->removeElement($favorite);
+            // set the owning side to null (unless already changed)
+            if ($favorite->getPhoto() === $this) {
+                $favorite->setPhoto(null);
+            }
+        }
 
         return $this;
     }
