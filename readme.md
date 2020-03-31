@@ -10,9 +10,10 @@ cd api-shareapp && composer install
 ...
 ```
 
----
+# 🏁 Api
 
-## 🏁 Api route
+## Authenticate Route
+---
 
 ### Register a new user
 ```
@@ -35,6 +36,8 @@ http://127.0.0.1:8000/api/login_check
 
 ⚠️ **Warning** : username is the user email
 
+## User Route
+---
 
 ### Update user account
 ```
@@ -60,6 +63,9 @@ http://127.0.0.1:8000/api/user/update/{id}
 [GET]
 http://127.0.0.1:8000/api/user/{id}
 ```
+
+## Route of collections
+---
 
 ### Get a list of all collections
 ```
@@ -91,3 +97,42 @@ http://127.0.0.1:8000/api/collection/create
 [POST]
 http://127.0.0.1:8000/api/collection/update/{id}
 ```
+- [Params]
+    - title: string | **required**
+    - description: string | **required**
+- [Header]
+    - Authorization: Bearer Token
+- [FORM_DATA]
+    - collection_cover: File
+
+### Delete a collection
+```
+[DELETE]
+http://127.0.0.1:8000/api/collection/delete/{id}
+```
+- [Header]
+    - Authorization: Bearer Token
+
+## Route of pictures
+---
+
+### Get a list of all pictures
+```
+[GET]
+http://127.0.0.1:8000/api/photo/
+```
+
+### Create a new pictures
+```
+[POST]
+http://127.0.0.1:8000/api/photo/create
+```
+- [Params]
+    - title: string | **required**
+    - description: string | **description**
+    - image_file: File | **required**
+    - collection_id: int | **required**
+    - longitude: double
+    - latitude: double
+- [Header]
+    - Authorization: Bearer Token
