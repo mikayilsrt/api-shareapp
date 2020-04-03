@@ -42,10 +42,11 @@ class CollectionRepository extends ServiceEntityRepository
     public function findCollectionById($id)
     {
         return $this->createQueryBuilder('c')
-            ->select('c, u')
-            ->where('c.id = :id')
+            ->select('c, u, p')
+            ->where('c.id = :collection_id')
             ->leftJoin('c.user', 'u')
-            ->setParameter('id', $id)
+            ->leftJoin('c.photos', 'p')
+            ->setParameter('collection_id', $id)
             ->getQuery()
             ->getArrayResult();
     }

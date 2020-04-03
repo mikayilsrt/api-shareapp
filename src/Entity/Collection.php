@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Photo;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CollectionRepository")
@@ -38,6 +40,11 @@ class Collection
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="collection")
+     */
+    private $photos;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -46,6 +53,7 @@ class Collection
     {
         $this->cover_photo = "cover_default.jpg";
         $this->created_at = new \DateTime();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +105,37 @@ class Collection
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Collection[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photos->setCollection($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
+            // set the owning side to null (unless already changed)
+            if ($photo->getCollection() === $this) {
+                $photo->setCollection(null);
+            }
+        }
 
         return $this;
     }
