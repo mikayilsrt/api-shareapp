@@ -45,6 +45,18 @@ class PhotoController extends ApiController
     }
 
     /**
+     * @Route("/{id}", name="photo.show")
+     * 
+     * @return Response
+     */
+    public function show($id, PhotoRepository $photoRepository)
+    {
+        $photo = $photoRepository->findById($id);
+
+        return $this->respondWithSuccess($photo);
+    }
+
+    /**
      * @Route("/create", name="api.photo.create", methods={"POST"})
      * 
      * @param Request $request

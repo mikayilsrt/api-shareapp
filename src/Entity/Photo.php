@@ -30,12 +30,12 @@ class Photo
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Collection", inversedBy="photos")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Collection")
      */
     private $collection;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="photos")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;
 

@@ -34,6 +34,18 @@ class PhotoRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, u, c')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.collection', 'c')
+            ->where('p.id = :photo_id')
+            ->setParameter('photo_id', $id)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Photo[] Returns an array of Photo objects
     //  */
