@@ -144,3 +144,11 @@ http://127.0.0.1:8000/api/favorite/favorite
     - Authorization: Bearer Token
 
 ⚠️ **Warning** : This route add picture in favorite or remove if already liked.
+
+### Route of Search
+```
+[POST]
+http://127.0.0.1:8000/api/search
+```
+- [Params]
+    - args: string | **required**

@@ -51,6 +51,24 @@ class CollectionRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+     * Search collection by arg
+     * 
+     * @param string $args
+     * 
+     * @return array<Collection>
+     */
+    public function searchCollections($args)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.title LIKE :searchTitle')
+            ->orWhere('c.description LIKE :searchDescription')
+            ->setParameter('searchTitle', '%' . $args . '%')
+            ->setParameter('searchDescription', '%' . $args . '%')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Collection[] Returns an array of Collection objects
     //  */

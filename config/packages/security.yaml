@@ -45,6 +45,7 @@ security:
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/photo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/photo/create, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/photo/delete, roles: IS_AUTHENTICATED_FULLY }
