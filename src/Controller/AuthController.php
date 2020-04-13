@@ -34,10 +34,11 @@ class AuthController extends ApiController
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository): Response
     {
-        $name = $request->get('username');
-        $username = str_replace(' ', '', $request->get('username'));
-        $email = $request->get('mail');
-        $password = $request->get('password');
+        $requestData = \json_decode($request->getContent());
+        $name = $requestData->username;
+        $username = str_replace(' ', '', $requestData->username);
+        $email = $requestData->email;
+        $password = $requestData->password;
 
         if (empty($name) || empty($username) || empty($email) || empty($password)) {
             return $this->respondValidationError();
