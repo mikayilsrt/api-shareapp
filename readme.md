@@ -81,7 +81,7 @@ http://127.0.0.1:8000/api/collection/{id}
 [POST]
 http://127.0.0.1:8000/api/collection/create
 ```
-- [Params]
+- [Body]
     - title: string | **required**
     - description: string | **required**
 - [Header]

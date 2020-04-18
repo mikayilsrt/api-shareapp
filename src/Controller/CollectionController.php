@@ -79,9 +79,10 @@ class CollectionController extends ApiController
     {
         if (!$this->security->getUser()) return $this->respondWithErrors("User is not authenticate.");
 
+        $requestData = json_decode($request->getContent());
         $user = $this->security->getUser();
-        $title = $request->get('title');
-        $description = $request->get('description');
+        $title = $requestData->title;
+        $description = $requestData->description;
         $file = $request->files->get('collection_cover');
         $fileName = 'cover_default.jpg';
         
