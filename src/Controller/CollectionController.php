@@ -81,8 +81,8 @@ class CollectionController extends ApiController
 
         $requestData = json_decode($request->getContent());
         $user = $this->security->getUser();
-        $title = $requestData->title;
-        $description = $requestData->description;
+        $title = $request->request->get('title');
+        $description = $request->request->get('description');
         $file = $request->files->get('collection_cover');
         $fileName = 'cover_default.jpg';
         

@@ -81,12 +81,11 @@ http://127.0.0.1:8000/api/collection/{id}
 [POST]
 http://127.0.0.1:8000/api/collection/create
 ```
-- [Body]
-    - title: string | **required**
-    - description: string | **required**
 - [Header]
     - Authorization: Bearer Token
 - [FORM_DATA]
+    - title: string | **required**
+    - description: string | **required**
     - collection_cover: file
 
 ### Update a collection
