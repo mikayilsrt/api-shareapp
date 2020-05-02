@@ -45,7 +45,11 @@ class PhotoController extends ApiController
     }
 
     /**
-     * @Route("/{id}", name="photo.show")
+     * @Route("/{id}", name="photo.show", methods={"GET"})
+     * 
+     * @param int $id
+     * 
+     * @param PhotoRepository $photoRepository
      * 
      * @return Response
      */
@@ -57,9 +61,11 @@ class PhotoController extends ApiController
     }
 
     /**
-     * @Route("/create", name="api.photo.create", methods={"POST"})
+     * @Route("/create", name="photo.create", methods={"POST"})
      * 
      * @param Request $request
+     * 
+     * @param CollectionRepository $collectionRepository
      * 
      * @return Response
      */
@@ -67,11 +73,11 @@ class PhotoController extends ApiController
     {
         if (!$this->security->getUser()) return $this->respondWithErrors("User is not authenticate.");
 
-        $title = $request->get('title');
-        $description = $request->get('description');
-        $collectionId = $request->get('collection_id');
-        $longitude = $request->get('longitude');
-        $latitude = $request->get('latitude');
+        $title = $request->request->get('title');
+        $description = $request->request->get('description');
+        $collectionId = $request->request->get('collection_id');
+        $longitude = $request->request->get('longitude');
+        $latitude = $request->request->get('latitude');
         $file = $request->files->get('image_file');
         
         if (empty($title) || empty($description) || !$file) return $this->respondValidationError();

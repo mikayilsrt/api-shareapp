@@ -122,15 +122,15 @@ http://127.0.0.1:8000/api/photo/
 [POST]
 http://127.0.0.1:8000/api/photo/create
 ```
-- [Params]
+- [Header]
+    - Authorization: Bearer Token
+- [FORM_DATA]
     - title: string | **required**
     - description: string | **description**
     - image_file: File | **required**
     - collection_id: int | **required**
     - longitude: double
     - latitude: double
-- [Header]
-    - Authorization: Bearer Token
 
 ### Route of favorite
 ```
