@@ -35,6 +35,12 @@ http://127.0.0.1:8000/api/login_check
 
 ⚠️ **Warning** : username is the user email
 
+### Check Authentification
+```
+[POST]
+http://127.0.0.1:8000/api/auth_valid
+```
+
 ## User Route
 
 ### Update user account
