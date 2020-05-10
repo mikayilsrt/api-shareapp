@@ -38,12 +38,23 @@ class AuthController extends ApiController
      */
     public function checkAuth(): Response
     {
-        if (!$this->security->getUser()) {
+        $user = $this->security->getUser();
+        if (!$user) {
             $this->setStatusCode(403);
             return $this->respondWithSuccess("Unauthenticated user");
         }
         $this->setStatusCode(200);
-        return $this->respondWithSuccess("Authenticated user");
+        return $this->respondWithSuccess([
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'username' => $user->getUsername(),
+            'name' => $user->getName(),
+            'biographie' => $user->getBiographie(),
+            'latitude' => $user->getLatitude(),
+            'longitude' => $user->getLongitude(),
+            'portfolio_url' => $user->getPortfolioUrl(),
+            'profile_image' => $user->getProfileImage()
+        ]);
     }
 
     /**
