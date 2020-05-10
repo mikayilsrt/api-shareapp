@@ -44,6 +44,7 @@ security:
     access_control:
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/auth_valid, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/photo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
