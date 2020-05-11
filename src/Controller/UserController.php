@@ -47,7 +47,7 @@ class UserController extends ApiController
     }
     
     /**
-     * @Route("/update/{id}", name="api.user.update", methods={"POST"})
+     * @Route("/update", name="api.user.update", methods={"POST"})
      * 
      * @param int $id
      * 
@@ -57,19 +57,20 @@ class UserController extends ApiController
      * 
      * @return Response
      */
-    public function update($id, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
+    public function update(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
     {
-        $user = $userRepository->find($id);
-
-        $name = $request->get('name');
-        $username = str_replace(' ', '', $request->get('username'));
-        $email = $request->get('email');
-        $password = $request->get('password');
-        $biographie = $request->get('biographie');
-        $portfolioUrl = $request->get('portfolio_url');
-        $latitude = $request->get('latitude');
-        $longitude = $request->get('longitude');
+        $id = $request->request->get('id');
+        $name = $request->request->get('name');
+        $username = str_replace(' ', '', $request->request->get('username'));
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+        $biographie = $request->request->get('biographie');
+        $portfolioUrl = $request->request->get('portfolio_url');
+        $latitude = $request->request->get('latitude');
+        $longitude = $request->request->get('longitude');
         $file = $request->files->get('profile_image');
+
+        $user = $userRepository->find($id);
 
         if (!$user || !$this->security->getUser() || $this->security->getUser() != $user)
             return $this->respondWithErrors("User not found or Action invalid.");

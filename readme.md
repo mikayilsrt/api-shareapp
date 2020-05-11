@@ -46,9 +46,10 @@ http://127.0.0.1:8000/api/auth_valid
 ### Update user account
 ```
 [POST]
-http://127.0.0.1:8000/api/user/update/{id}
+http://127.0.0.1:8000/api/user/update
 ```
-- [Params]
+- [Header]
+    - Authorization: Bearer Token
     - name: string | **required**
     - username: string | **required**
     - email: string | **required**
@@ -57,8 +58,6 @@ http://127.0.0.1:8000/api/user/update/{id}
     - portfolio_url: string
     - latitude: double
     - longitude: double
-- [Header]
-    - Authorization: Bearer Token
 - [FORM_DATA]
     - profile_image: file
 
