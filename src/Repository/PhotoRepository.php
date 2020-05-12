@@ -30,6 +30,7 @@ class PhotoRepository extends ServiceEntityRepository
             ->select('p, u, c')
             ->leftJoin('p.collection', 'c')
             ->leftJoin('p.user', 'u')
+            ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getArrayResult();
     }

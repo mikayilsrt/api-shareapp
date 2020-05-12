@@ -28,6 +28,7 @@ class CollectionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->select('c')
+            ->orderBy('c.id', 'DESC')
             ->getQuery()
             ->getArrayResult();
     }
