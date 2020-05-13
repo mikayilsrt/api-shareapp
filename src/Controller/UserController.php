@@ -47,7 +47,7 @@ class UserController extends ApiController
     }
     
     /**
-     * @Route("/update", name="api.user.update", methods={"POST"})
+     * @Route("/update/{id}", name="api.user.update", methods={"POST"})
      * 
      * @param int $id
      * 
@@ -57,9 +57,8 @@ class UserController extends ApiController
      * 
      * @return Response
      */
-    public function update(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
+    public function update($id, Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
     {
-        $id = $request->request->get('id');
         $name = $request->request->get('name');
         $username = str_replace(' ', '', $request->request->get('username'));
         $email = $request->request->get('email');

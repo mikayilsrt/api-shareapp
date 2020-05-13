@@ -50,6 +50,7 @@ http://127.0.0.1:8000/api/user/update
 ```
 - [Header]
     - Authorization: Bearer Token
+- [FORM_DATA]
     - name: string | **required**
     - username: string | **required**
     - email: string | **required**
@@ -58,7 +59,6 @@ http://127.0.0.1:8000/api/user/update
     - portfolio_url: string
     - latitude: double
     - longitude: double
-- [FORM_DATA]
     - profile_image: file
 
 ### Show a user information
