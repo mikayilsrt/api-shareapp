@@ -74,7 +74,7 @@ class UserController extends ApiController
         if (!$user || !$this->security->getUser() || $this->security->getUser() != $user)
             return $this->respondWithErrors("User not found or Action invalid.");
 
-        if (empty($name) || empty($username) || empty($email) || empty($password))
+        if (empty($name) || empty($username) || empty($email))
             return $this->respondValidationError();
 
         if ($file) {
