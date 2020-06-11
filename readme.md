@@ -46,7 +46,7 @@ http://127.0.0.1:8000/api/auth_valid
 ### Update user account
 ```
 [POST]
-http://127.0.0.1:8000/api/user/update
+http://127.0.0.1:8000/api/user/update/{id}
 ```
 - [Header]
     - Authorization: Bearer Token

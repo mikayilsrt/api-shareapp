@@ -84,11 +84,14 @@ class UserController extends ApiController
                 return $this->respondValidationError();
             }
         }
+        
+        if (!empty($password)) {
+            $user->setPassword($encoder->encodePassword($user, $password));
+        }
 
         $user->setName($name);
         $user->setUsername($username);
         $user->setEmail($email);
-        $user->setPassword($encoder->encodePassword($user, $password));
         $user->setBiographie($biographie);
         $user->setPortfolioUrl($portfolioUrl);
         $user->setLatitude($latitude);

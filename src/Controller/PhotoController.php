@@ -88,7 +88,7 @@ class PhotoController extends ApiController
         $photo->setCollection($collectionRepository->find($collectionId));
         $photo->setUser($this->security->getUser());
         
-        if (!empty($longitude) && !empty($latitude)) {
+        if (!empty($longitude) && !empty($latitude) && $longitude !== "null" && $latitude !== "null") {
             $photo->setLatitude($latitude);
             $photo->setLongitude($longitude);
         }
