@@ -137,6 +137,14 @@ http://127.0.0.1:8000/api/photo/create
     - longitude: double
     - latitude: double
 
+### Delete a picture
+```
+[POST]
+http://127.0.0.1:8000/api/photo/delete/{id}
+```
+- [Header]
+    - Authorization: Bearer Token
+
 ### Route of favorite
 ```
 [POST]
