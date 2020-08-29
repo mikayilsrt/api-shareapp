@@ -90,4 +90,33 @@ class AuthController extends ApiController
 
         return $this->respondWithSuccess('User successfully created.');
     }
+
+    /**
+     * @Route("/api/reset/password", name="api.user.reset.password", methods={"POST"})
+     * 
+     * @param Request $request
+     * 
+     * @param UserRepository $userRepository
+     * 
+     * @param UserPasswordEncoderInterface $encoder
+     * 
+     * @return Response
+     */
+    public function resetPassword(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $encoder)
+    {
+        $email = $request->request->get('email');
+        $newPassword = $request->request->get('new_password');
+
+        $user = $userRepository->findOneBy(['email' => $email]);
+
+        if ($user != null && !empty($newPassword)) {
+            $user->setPassword($encoder->encodePassword($user, $newPassword));
+
+            $this->em->flush();
+
+            return $this->respondWithSuccess("Password successfully updated.");
+        }
+
+        return $this->respondValidationError();
+    }
 }

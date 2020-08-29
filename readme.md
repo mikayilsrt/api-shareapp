@@ -35,6 +35,15 @@ http://127.0.0.1:8000/api/login_check
 
 ⚠️ **Warning** : username is the user email
 
+### Reset authentification password
+```
+[POST]
+http://127.0.0.1:8000/api/reset/password
+```
+- [FORM_DATA]
+    - email: string | **required**
+    - new_password: string | **required**
+
 ### Check Authentification
 ```
 [POST]
